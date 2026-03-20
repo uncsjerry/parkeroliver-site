@@ -1,18 +1,18 @@
 /* ==========================================================================
    Parker Oliver — parkeroliver.com
-   Dark mode, modern teen aesthetic with electric blue accents
+   Dark mode, modern teen aesthetic with spring green accents
    ========================================================================== */
 
 :root {
-  /* WHY: Dark theme with electric blue feels cool and age-appropriate for a teen boy */
+  /* WHY: Dark theme with deep green feels fresh and age-appropriate for a teen boy in spring */
   --bg-dark: #0a0a0f;
   --bg-card: #14141f;
   --bg-section: #0e0e18;
   --bg-alt: #111119;
-  --electric: #3b82f6;
-  --electric-light: #60a5fa;
-  --electric-glow: rgba(59, 130, 246, 0.3);
-  --neon-green: #22c55e;
+  --electric: #2d8a4e;
+  --electric-light: #4ade80;
+  --electric-glow: rgba(45, 138, 78, 0.3);
+  --neon-green: #a3e635;
   --white: #ffffff;
   --text: #e4e4e7;
   --text-muted: #9ca3af;
@@ -22,7 +22,7 @@
   --radius-sm: 10px;
   --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 30px rgba(59, 130, 246, 0.15);
+  --shadow-glow: 0 0 30px rgba(45, 138, 78, 0.15);
 }
 
 /* Reset */
@@ -203,9 +203,9 @@ a {
   inset: 0;
   /* WHY: Gradient mesh creates a subtle colored atmosphere without being distracting */
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(59, 130, 246, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 50%, rgba(45, 138, 78, 0.12) 0%, transparent 60%),
     radial-gradient(ellipse at 80% 20%, rgba(34, 197, 94, 0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 50%);
+    radial-gradient(ellipse at 50% 80%, rgba(45, 138, 78, 0.08) 0%, transparent 50%);
 }
 
 .hero-content {
@@ -378,8 +378,8 @@ a {
   font-weight: 700;
   letter-spacing: 3px;
   color: var(--electric);
-  background: rgba(59, 130, 246, 0.1);
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  background: rgba(45, 138, 78, 0.1);
+  border: 1px solid rgba(45, 138, 78, 0.2);
   padding: 6px 16px;
   border-radius: 20px;
   margin-bottom: 16px;
@@ -412,7 +412,7 @@ a {
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
-  scrollbar-color: rgba(59, 130, 246, 0.3) transparent;
+  scrollbar-color: rgba(45, 138, 78, 0.3) transparent;
 }
 
 .timeline-gallery::-webkit-scrollbar {
@@ -424,7 +424,7 @@ a {
 }
 
 .timeline-gallery::-webkit-scrollbar-thumb {
-  background: rgba(59, 130, 246, 0.3);
+  background: rgba(45, 138, 78, 0.3);
   border-radius: 3px;
 }
 
@@ -658,15 +658,15 @@ a {
 }
 
 /* ==========================================================================
-   Bar Mitzvah Section
+   Freshman Year Section
    ========================================================================== */
 
-.section-bm {
+.section-freshman {
   background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-section) 50%, var(--bg-dark) 100%);
   text-align: center;
 }
 
-.bm-hero-img {
+.freshman-hero-img {
   max-width: 500px;
   margin: 0 auto 48px;
   border-radius: var(--radius);
@@ -675,16 +675,16 @@ a {
   border: 1px solid var(--border);
 }
 
-.bm-hero-img img {
+.freshman-hero-img img {
   width: 100%;
 }
 
-.bm-quote {
+.freshman-quote {
   text-align: center;
   padding: 40px 32px;
 }
 
-.bm-quote blockquote p {
+.freshman-quote blockquote p {
   font-family: 'Space Grotesk', sans-serif;
   font-size: clamp(1.5rem, 3.5vw, 2.5rem);
   font-weight: 700;
@@ -726,8 +726,8 @@ a {
 }
 
 .fact-card {
-  background: rgba(59, 130, 246, 0.05);
-  border: 1px solid rgba(59, 130, 246, 0.1);
+  background: rgba(45, 138, 78, 0.05);
+  border: 1px solid rgba(45, 138, 78, 0.1);
   border-radius: var(--radius-sm);
   padding: 24px 20px;
   transition: transform 0.3s ease, border-color 0.3s ease;
@@ -735,7 +735,7 @@ a {
 
 .fact-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(59, 130, 246, 0.3);
+  border-color: rgba(45, 138, 78, 0.3);
 }
 
 .fact-num {
@@ -839,8 +839,8 @@ a {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(59, 130, 246, 0.15);
-  border: 1px solid rgba(59, 130, 246, 0.3);
+  background: rgba(45, 138, 78, 0.15);
+  border: 1px solid rgba(45, 138, 78, 0.3);
   color: white;
   font-size: 2rem;
   width: 48px;
@@ -858,7 +858,7 @@ a {
 .lightbox-prev:hover,
 .lightbox-next:hover {
   opacity: 1;
-  background: rgba(59, 130, 246, 0.3);
+  background: rgba(45, 138, 78, 0.3);
 }
 
 .lightbox-prev { left: 20px; }

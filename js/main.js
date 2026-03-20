@@ -61,7 +61,7 @@
       '.masonry-item img',
       '.crew-card img',
       '.family-card img',
-      '.bm-hero-img img'
+      '.freshman-hero-img img'
     ];
     selectors.forEach(sel => {
       document.querySelectorAll(sel).forEach(img => {
@@ -99,7 +99,7 @@
 
   // WHY: Use closest clickable parent so the entire card area is tappable
   galleryImages.forEach((img, i) => {
-    const clickTarget = img.closest('.timeline-img, .masonry-item, .crew-card, .family-card, .bm-hero-img');
+    const clickTarget = img.closest('.timeline-img, .masonry-item, .crew-card, .family-card, .freshman-hero-img');
     if (clickTarget) {
       clickTarget.addEventListener('click', () => openLightbox(i));
     }
