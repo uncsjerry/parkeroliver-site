@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery — Parker Oliver</title>
+  <meta name="description" content="Family photo gallery — Parker Oliver">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://www.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/gallery.css">
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <a href="index.html" class="nav-logo">PO</a>
+    <div class="nav-links">
+      <a href="index.html#growing-up">Growing Up</a>
+      <a href="index.html#adventures">Adventures</a>
+      <a href="index.html#crew">The Crew</a>
+      <a href="index.html#family">Family</a>
+      <a href="gallery.html" class="active">Gallery</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html#growing-up">Growing Up</a>
+    <a href="index.html#adventures">Adventures</a>
+    <a href="index.html#crew">The Crew</a>
+    <a href="index.html#family">Family</a>
+    <a href="gallery.html">Gallery</a>
+  </div>
+
+  <!-- Gallery Hero -->
+  <header class="gallery-hero">
+    <div class="gallery-hero-inner">
+      <p class="gallery-hero-tag">Family Album</p>
+      <h1 class="gallery-hero-title">Gallery</h1>
+      <p class="gallery-hero-desc">Photos from the shared family album. Tagged for Parker, synced automatically.</p>
+    </div>
+  </header>
+
+  <!-- Filter Bar -->
+  <div class="fs-filter-bar" id="firestoreCategoryTabs">
+    <div class="fs-filter-bar-inner">
+      <div class="fs-filter-group">
+        <button class="fs-filter-btn active" data-filter="all">All</button>
+        <button class="fs-filter-btn" data-filter="family">Family</button>
+        <button class="fs-filter-btn" data-filter="travel">Travel</button>
+        <button class="fs-filter-btn" data-filter="events">Events</button>
+        <button class="fs-filter-btn" data-filter="milestones">Milestones</button>
+        <button class="fs-filter-btn" data-filter="holidays">Holidays</button>
+      </div>
+      <input type="text" class="fs-gallery-search" id="firestoreGallerySearch" placeholder="Search photos...">
+    </div>
+  </div>
+
+  <!-- Gallery Grid -->
+  <main class="fs-gallery-container">
+    <div class="fs-gallery-grid" id="firestoreGalleryGrid">
+      <!-- Rendered by JS from Firestore -->
+    </div>
+    <div class="fs-feed-empty" id="firestoreFeedEmpty" style="display: none;">
+      <p class="fs-empty-text">No photos yet.</p>
+      <p class="fs-empty-sub">Photos tagged for Parker will appear here automatically from the family admin panel.</p>
+    </div>
+    <div class="fs-feed-loading" id="firestoreFeedLoading">
+      <div class="fs-loader"></div>
+    </div>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="fs-lightbox" id="firestoreLightbox" style="display: none;">
+    <button class="fs-lightbox-close" id="firestoreLightboxClose">&times;</button>
+    <button class="fs-lightbox-prev" id="firestoreLightboxPrev">&lsaquo;</button>
+    <button class="fs-lightbox-next" id="firestoreLightboxNext">&rsaquo;</button>
+    <div class="fs-lightbox-content">
+      <img class="fs-lightbox-img" id="firestoreLightboxImg" src="" alt="">
+      <div class="fs-lightbox-meta" id="firestoreLightboxMeta"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <p class="footer-headline">Let's Go, Parker.</p>
+      <p class="footer-copy">&copy; 2026 — Made with love</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script type="module" src="js/gallery.js"></script>
+</body>
+</html>
