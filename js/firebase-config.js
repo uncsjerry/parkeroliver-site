@@ -10,12 +10,12 @@ import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.12.0/firebas
 
 // WHY: Config is safe to expose client-side — security is enforced by Firestore rules, not by hiding these keys
 const firebaseConfig = {
-  apiKey: "YOUR_FIREBASE_API_KEY",
+  apiKey: "AIzaSyCRbyzjnKcCv_VZKd8xWUHDWu7rmK943uQ",
   authDomain: "gutierrez-rose-family.firebaseapp.com",
   projectId: "gutierrez-rose-family",
   storageBucket: "gutierrez-rose-family.firebasestorage.app",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  messagingSenderId: "240062290004",
+  appId: "1:240062290004:web:7342cdbb92e05c38c9f5c1"
 };
 
 const app = initializeApp(firebaseConfig);
