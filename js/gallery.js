@@ -27,6 +27,9 @@ let filteredPhotos = [];
 let activeCategory = '';
 let searchTerm = '';
 let lightboxIndex = -1;
+let galleryExpanded = false;
+
+const galleryContainer = document.querySelector('.fs-gallery-container');
 
 // -------------------------------------------
 // Load photos — filtered by visibility + status
@@ -53,7 +56,7 @@ async function loadPhotos() {
       allPhotos.push({ id: doc.id, ...doc.data() });
     });
 
-    applyFilters();
+    // WHY: Don't render on load — gallery starts collapsed, photos load silently in background
   } catch (err) {
     console.error('Error loading photos:', err);
     if (feedLoading) feedLoading.style.display = 'none';
@@ -80,13 +83,40 @@ function applyFilters() {
   renderGallery();
 }
 
+// WHY: Gallery starts collapsed — clicking a category expands it, clicking active category collapses it
+function expandGallery() {
+  galleryExpanded = true;
+  if (galleryContainer) galleryContainer.classList.add('gallery-expanded');
+  if (gallerySearch) gallerySearch.style.display = '';
+}
+
+function collapseGallery() {
+  galleryExpanded = false;
+  if (galleryContainer) galleryContainer.classList.remove('gallery-expanded');
+  if (galleryGrid) galleryGrid.innerHTML = '';
+  if (feedEmpty) feedEmpty.style.display = 'none';
+  if (gallerySearch) gallerySearch.style.display = 'none';
+}
+
 if (categoryTabs) {
   categoryTabs.addEventListener('click', (e) => {
     const tab = e.target.closest('.fs-filter-btn');
     if (!tab) return;
+
+    const clickedFilter = tab.dataset.filter === 'all' ? '' : tab.dataset.filter;
+
+    // If clicking the already-active filter while expanded, collapse
+    if (clickedFilter === activeCategory && galleryExpanded) {
+      categoryTabs.querySelectorAll('.fs-filter-btn').forEach(t => t.classList.remove('active'));
+      activeCategory = '';
+      collapseGallery();
+      return;
+    }
+
     categoryTabs.querySelectorAll('.fs-filter-btn').forEach(t => t.classList.remove('active'));
     tab.classList.add('active');
-    activeCategory = tab.dataset.filter === 'all' ? '' : tab.dataset.filter;
+    activeCategory = clickedFilter;
+    expandGallery();
     applyFilters();
   });
 }
@@ -100,6 +130,8 @@ if (gallerySearch) {
       applyFilters();
     }, 300);
   });
+  // WHY: Gallery starts collapsed — search bar hidden until a category is selected
+  gallerySearch.style.display = 'none';
 }
 
 // -------------------------------------------

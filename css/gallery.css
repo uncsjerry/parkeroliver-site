@@ -87,6 +87,16 @@
   border-color: var(--electric);
   color: #fff;
 }
+/* WHY: Visual affordance — plus/minus indicates expandable behavior */
+.fs-filter-btn::after {
+  content: ' +';
+  font-weight: 400;
+  opacity: 0.5;
+}
+.fs-filter-btn.active::after {
+  content: ' \2212';
+  opacity: 1;
+}
 
 .fs-gallery-search {
   flex: 1;
@@ -107,11 +117,21 @@
 .fs-gallery-search::placeholder { color: var(--text-muted); }
 
 /* --- Gallery Grid --- */
+/* WHY: Gallery starts collapsed (max-height: 0) and animates open when a category is selected */
 .fs-gallery-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 3rem 2rem;
-  min-height: 40vh;
+  min-height: 0;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.4s ease;
+}
+.fs-gallery-container.gallery-expanded {
+  max-height: none;
+  overflow: visible;
+  opacity: 1;
 }
 .fs-gallery-grid {
   display: grid;
