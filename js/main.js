@@ -1,6 +1,6 @@
 /* ==========================================================================
    Parker Oliver — parkeroliver.com
-   Main JavaScript
+   Main JavaScript — VOGUE editorial interactions
    ========================================================================== */
 
 (function () {
@@ -28,21 +28,85 @@
   }
 
   // ---------- Scroll reveal ----------
-  const reveals = document.querySelectorAll('.reveal');
-
   function checkReveal() {
     const triggerBottom = window.innerHeight * 0.88;
-    reveals.forEach(el => {
-      const top = el.getBoundingClientRect().top;
-      if (top < triggerBottom) {
+    // WHY: Re-query each time in case elements were added dynamically
+    document.querySelectorAll('.reveal').forEach(el => {
+      if (el.getBoundingClientRect().top < triggerBottom) {
         el.classList.add('visible');
       }
     });
   }
 
-  // WHY: Run once on load for above-fold items, then on scroll
   checkReveal();
   window.addEventListener('scroll', checkReveal, { passive: true });
+
+  // ---------- Nav: hide on scroll down, show on scroll up, swap bg past hero ----------
+  let lastScroll = 0;
+  const nav = document.querySelector('.nav');
+  const hero = document.querySelector('.hero');
+
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+
+    // Hide/show nav on scroll direction
+    if (currentScroll > lastScroll && currentScroll > 100) {
+      nav.style.transform = 'translateY(-100%)';
+    } else {
+      nav.style.transform = 'translateY(0)';
+    }
+
+    // WHY: Switch nav from transparent-over-hero to solid-over-content
+    if (hero) {
+      const heroBottom = hero.offsetTop + hero.offsetHeight;
+      if (currentScroll > heroBottom - 60) {
+        nav.classList.add('nav-scrolled');
+      } else {
+        nav.classList.remove('nav-scrolled');
+      }
+    }
+
+    lastScroll = currentScroll;
+  }, { passive: true });
+
+  // ---------- Animated counters ----------
+  // WHY: Counts up from 0 to target value when element enters viewport (like Mac's stat counters)
+  const counters = document.querySelectorAll('[data-target]');
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseInt(el.dataset.target, 10);
+      if (isNaN(target)) return;
+
+      const duration = 1500; // ms to count up — matches editorial pacing
+      const start = performance.now();
+
+      function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        // WHY: Cubic ease-out makes the counter decelerate naturally
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target);
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+
+      requestAnimationFrame(tick);
+      counterObserver.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(c => counterObserver.observe(c));
+
+  // ---------- Polaroid shuffle — random rotation ----------
+  // WHY: Gives polaroids a scattered-on-table look, like Mac's friend cards
+  const polaroids = document.querySelectorAll('.polaroid-card');
+  function shufflePolaroids() {
+    polaroids.forEach(card => {
+      const rotation = (Math.random() - 0.5) * 10; // -5 to +5 degrees
+      card.style.transform = `rotate(${rotation}deg)`;
+    });
+  }
+  shufflePolaroids();
 
   // ---------- Lightbox ----------
   const lightbox = document.getElementById('lightbox');
@@ -58,10 +122,11 @@
     galleryImages = [];
     const selectors = [
       '.timeline-img img',
-      '.masonry-item img',
-      '.crew-card img',
+      '.world-card img',
+      '.polaroid-frame img',
       '.family-card img',
-      '.freshman-hero-img img'
+      '.freshman-img img',
+      '.meet-image img'
     ];
     selectors.forEach(sel => {
       document.querySelectorAll(sel).forEach(img => {
@@ -99,7 +164,7 @@
 
   // WHY: Use closest clickable parent so the entire card area is tappable
   galleryImages.forEach((img, i) => {
-    const clickTarget = img.closest('.timeline-img, .masonry-item, .crew-card, .family-card, .freshman-hero-img');
+    const clickTarget = img.closest('.timeline-img, .world-card, .polaroid-card, .family-card, .freshman-img, .meet-image');
     if (clickTarget) {
       clickTarget.addEventListener('click', () => openLightbox(i));
     }
@@ -109,16 +174,14 @@
   if (lightboxPrev) lightboxPrev.addEventListener('click', showPrev);
   if (lightboxNext) lightboxNext.addEventListener('click', showNext);
 
-  // Close on background click
   if (lightbox) {
     lightbox.addEventListener('click', (e) => {
       if (e.target === lightbox) closeLightbox();
     });
   }
 
-  // Keyboard navigation
   document.addEventListener('keydown', (e) => {
-    if (!lightbox.classList.contains('active')) return;
+    if (!lightbox || !lightbox.classList.contains('active')) return;
     if (e.key === 'Escape') closeLightbox();
     if (e.key === 'ArrowLeft') showPrev();
     if (e.key === 'ArrowRight') showNext();
@@ -142,27 +205,13 @@
     }, { passive: true });
   }
 
-  // ---------- Nav hide on scroll down, show on scroll up ----------
-  let lastScroll = 0;
-  const nav = document.querySelector('.nav');
-
-  window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
-    if (currentScroll > lastScroll && currentScroll > 100) {
-      nav.style.transform = 'translateY(-100%)';
-    } else {
-      nav.style.transform = 'translateY(0)';
-    }
-    lastScroll = currentScroll;
-  }, { passive: true });
-
   // ---------- Stagger reveal for grid items ----------
   // WHY: Adds a subtle stagger effect when multiple items reveal at once
-  const gridContainers = document.querySelectorAll('.crew-gallery, .family-gallery, .facts-grid');
+  const gridContainers = document.querySelectorAll('.polaroid-gallery, .family-gallery, .facts-grid, .world-grid');
   gridContainers.forEach(container => {
     const items = container.querySelectorAll('.reveal');
     items.forEach((item, i) => {
-      item.style.transitionDelay = `${i * 0.07}s`;
+      item.style.transitionDelay = `${i * 0.05}s`;
     });
   });
 

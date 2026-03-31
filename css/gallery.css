@@ -1,8 +1,8 @@
-/* ═══════════════════════════════════════════
+/* ==========================================================================
    Gallery Page — Parker Oliver
-   Dark theme with electric green accent
+   VOGUE-editorial style with spring accents
    Firestore-powered family photo gallery
-   ═══════════════════════════════════════════ */
+   ========================================================================== */
 
 /* WHY: All classes prefixed with "fs-" to avoid collision with existing lightbox/gallery in main.js */
 
@@ -10,31 +10,34 @@
 .gallery-hero {
   padding: 10rem 2rem 4rem;
   text-align: center;
-  background: var(--bg-dark);
+  background: var(--off-white);
 }
 .gallery-hero-inner {
   max-width: 600px;
   margin: 0 auto;
 }
 .gallery-hero-tag {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.75rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--electric-light);
+  letter-spacing: 0.25em;
+  color: var(--accent);
   margin-bottom: 1rem;
 }
 .gallery-hero-title {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: clamp(3rem, 7vw, 5rem);
-  font-weight: 700;
-  color: var(--text);
+  font-weight: 300;
+  color: var(--charcoal);
   letter-spacing: -0.03em;
   margin-bottom: 1rem;
 }
 .gallery-hero-desc {
-  font-size: 1.05rem;
-  color: var(--text-muted);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--light-gray);
   line-height: 1.7;
 }
 
@@ -43,9 +46,9 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  background: var(--bg-dark);
-  border-top: 1px solid rgba(255,255,255,0.06);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: var(--off-white);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   padding: 1rem 2rem;
 }
 .fs-filter-bar-inner {
@@ -65,27 +68,28 @@
 .fs-filter-group::-webkit-scrollbar { display: none; }
 
 .fs-filter-btn {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.7rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   padding: 0.5rem 1rem;
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 4px;
-  color: var(--text-muted);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius);
+  color: var(--mid-gray);
   background: transparent;
   white-space: nowrap;
   cursor: pointer;
   transition: all 0.3s;
 }
 .fs-filter-btn:hover {
-  border-color: rgba(255,255,255,0.15);
-  color: var(--text);
+  border-color: rgba(0, 0, 0, 0.2);
+  color: var(--charcoal);
 }
 .fs-filter-btn.active {
-  background: var(--electric);
-  border-color: var(--electric);
-  color: #fff;
+  background: var(--charcoal);
+  border-color: var(--charcoal);
+  color: var(--white);
 }
 /* WHY: Visual affordance — plus/minus indicates expandable behavior */
 .fs-filter-btn::after {
@@ -103,18 +107,18 @@
   min-width: 0;
   max-width: 280px;
   margin-left: auto;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.85rem;
-  color: var(--text);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  color: var(--charcoal);
   background: transparent;
   border: none;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding: 0.5rem 0;
   outline: none;
   transition: border-color 0.3s;
 }
-.fs-gallery-search:focus { border-bottom-color: var(--electric-light); }
-.fs-gallery-search::placeholder { color: var(--text-muted); }
+.fs-gallery-search:focus { border-bottom-color: var(--accent); }
+.fs-gallery-search::placeholder { color: var(--light-gray); }
 
 /* --- Gallery Grid --- */
 /* WHY: Gallery starts collapsed (max-height: 0) and animates open when a category is selected */
@@ -143,9 +147,10 @@
   grid-column: 1 / -1;
   text-align: center;
   padding: 5rem 0;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.3rem;
-  color: var(--text-muted);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--light-gray);
 }
 
 /* --- Gallery Card --- */
@@ -162,9 +167,9 @@
 .fs-gallery-card-image {
   position: relative;
   overflow: hidden;
-  background: var(--bg-card);
+  background: var(--ivory);
   aspect-ratio: 4 / 3;
-  border-radius: 8px;
+  border-radius: var(--radius);
 }
 .fs-gallery-card-image img {
   width: 100%;
@@ -180,22 +185,23 @@
   position: absolute;
   top: 12px;
   left: 12px;
-  background: var(--electric);
-  color: #fff;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.6rem;
+  background: var(--accent);
+  color: var(--white);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.55rem;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   padding: 4px 10px;
-  border-radius: 4px;
+  border-radius: var(--radius);
 }
 
 .fs-gallery-card-caption {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
   line-height: 1.5;
-  color: var(--text);
+  color: var(--charcoal);
   margin-top: 0.75rem;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -210,14 +216,15 @@
   margin-top: 0.5rem;
 }
 .fs-gallery-card-person {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.6rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.55rem;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--electric-light);
-  background: var(--electric-glow);
+  color: var(--accent);
+  background: rgba(232, 145, 122, 0.1);
   padding: 2px 8px;
-  border-radius: 4px;
+  border-radius: var(--radius);
 }
 
 /* --- Lightbox --- */
@@ -225,7 +232,7 @@
   position: fixed;
   inset: 0;
   z-index: 1000;
-  background: rgba(0,0,0,0.95);
+  background: rgba(0, 0, 0, 0.95);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -242,17 +249,15 @@
   max-width: 90vw;
   max-height: 75vh;
   object-fit: contain;
-  border-radius: 4px;
+  border-radius: var(--radius);
+  filter: none;
 }
 .fs-lightbox-close {
   position: absolute;
   top: 24px;
   right: 32px;
   font-size: 2rem;
-  color: var(--text);
-  background: none;
-  border: none;
-  cursor: pointer;
+  color: var(--white);
   z-index: 1001;
   line-height: 1;
   opacity: 0.7;
@@ -266,10 +271,7 @@
   top: 50%;
   transform: translateY(-50%);
   font-size: 3rem;
-  color: var(--text);
-  background: none;
-  border: none;
-  cursor: pointer;
+  color: var(--white);
   z-index: 1001;
   padding: 16px;
   line-height: 1;
@@ -282,15 +284,15 @@
 .fs-lightbox-next { right: 16px; }
 
 .fs-lightbox-meta {
-  color: var(--text);
+  color: var(--white);
   text-align: center;
   margin-top: 20px;
   max-width: 600px;
 }
 .fs-lightbox-caption {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 1.2rem;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.5;
   margin-bottom: 12px;
 }
@@ -299,8 +301,9 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 16px;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.65rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   opacity: 0.7;
@@ -317,16 +320,17 @@
   padding: 5rem 0;
 }
 .fs-empty-text {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 2rem;
-  font-weight: 700;
-  color: var(--text-muted);
+  font-weight: 300;
+  color: var(--light-gray);
   margin-bottom: 0.5rem;
 }
 .fs-empty-sub {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.85rem;
-  color: var(--text-muted);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: var(--light-gray);
 }
 .fs-feed-loading {
   display: flex;
@@ -336,8 +340,8 @@
 .fs-loader {
   width: 24px;
   height: 24px;
-  border: 2px solid rgba(255,255,255,0.08);
-  border-top-color: var(--electric-light);
+  border: 2px solid rgba(0, 0, 0, 0.06);
+  border-top-color: var(--accent);
   border-radius: 50%;
   animation: fsSpin 0.8s linear infinite;
 }

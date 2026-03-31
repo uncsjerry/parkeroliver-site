@@ -1,28 +1,32 @@
 /* ==========================================================================
    Parker Oliver — parkeroliver.com
-   Dark mode, modern teen aesthetic with spring green accents
+   VOGUE-editorial style with spring pastel accents
    ========================================================================== */
 
 :root {
-  /* WHY: Dark theme with deep green feels fresh and age-appropriate for a teen boy in spring */
-  --bg-dark: #0a0a0f;
-  --bg-card: #14141f;
-  --bg-section: #0e0e18;
-  --bg-alt: #111119;
-  --electric: #2d8a4e;
-  --electric-light: #4ade80;
-  --electric-glow: rgba(45, 138, 78, 0.3);
-  --neon-green: #a3e635;
-  --white: #ffffff;
-  --text: #e4e4e7;
-  --text-muted: #9ca3af;
-  --text-dim: #6b7280;
-  --border: rgba(255, 255, 255, 0.06);
-  --radius: 16px;
-  --radius-sm: 10px;
-  --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 30px rgba(45, 138, 78, 0.15);
+  /* WHY: Light cream/ivory base with warm coral accent mirrors the VOGUE editorial aesthetic from Mac's site */
+  --black: #000;
+  --near-black: #0a0a0a;
+  --charcoal: #1a1a1a;
+  --dark-gray: #2a2a2a;
+  --mid-gray: #666;
+  --light-gray: #999;
+  --ivory: #f5f0eb;
+  --off-white: #faf8f5;
+  --white: #fff;
+
+  /* WHY: Spring palette — warm coral primary, complemented by greens and lavender for a fresh seasonal feel */
+  --accent: #e8917a;
+  --accent-light: #f0a896;
+  --accent-dark: #c97060;
+  --spring-green: #7fb069;
+  --spring-green-light: #a8d99c;
+  --lavender: #b8a9c9;
+  --lavender-light: #d4c8e2;
+  --rose: #d4849a;
+
+  --radius: 4px;
+  --radius-sm: 2px;
 }
 
 /* Reset */
@@ -36,20 +40,23 @@ html {
   scroll-behavior: smooth;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  color: var(--text);
-  background: var(--bg-dark);
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--charcoal);
+  background: var(--off-white);
   overflow-x: hidden;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 img {
   display: block;
   max-width: 100%;
   height: auto;
+  /* WHY: Slight desaturation gives images an editorial film-stock feel */
+  filter: saturate(0.85);
 }
 
 a {
@@ -57,8 +64,15 @@ a {
   color: inherit;
 }
 
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: inherit;
+}
+
 /* ==========================================================================
-   Navigation
+   Navigation — frosted glass, matches Mac's nav pattern
    ========================================================================== */
 
 .nav {
@@ -70,35 +84,52 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 32px;
-  background: rgba(10, 10, 15, 0.8);
+  padding: 16px 40px;
+  /* WHY: Semi-transparent with backdrop blur for magazine-quality frosted nav */
+  background: rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  transition: transform 0.3s ease;
+  transition: background 0.4s ease, transform 0.3s ease;
+}
+
+/* WHY: Once scrolled past hero, switch to solid light background for readability over light sections */
+.nav.nav-scrolled {
+  background: var(--off-white);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
 }
 
 .nav-logo {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--electric);
-  letter-spacing: 2px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  color: var(--white);
+  transition: color 0.4s;
+}
+
+.nav-scrolled .nav-logo {
+  color: var(--charcoal);
 }
 
 .nav-links {
   display: flex;
-  gap: 28px;
+  gap: 36px;
 }
 
 .nav-links a {
-  font-size: 0.8rem;
-  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--text-muted);
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.8);
   transition: color 0.3s;
   position: relative;
+}
+
+.nav-scrolled .nav-links a {
+  color: var(--mid-gray);
 }
 
 .nav-links a::after {
@@ -107,9 +138,8 @@ a {
   bottom: -4px;
   left: 0;
   width: 0;
-  height: 2px;
-  background: var(--electric);
-  border-radius: 2px;
+  height: 1px;
+  background: var(--accent);
   transition: width 0.3s ease;
 }
 
@@ -118,26 +148,31 @@ a {
 }
 
 .nav-links a:hover {
-  color: var(--electric-light);
+  color: var(--white);
+}
+
+.nav-scrolled .nav-links a:hover {
+  color: var(--accent);
 }
 
 .nav-toggle {
   display: none;
   flex-direction: column;
   gap: 5px;
-  background: none;
-  border: none;
-  cursor: pointer;
   padding: 8px;
 }
 
 .nav-toggle span {
   display: block;
-  width: 24px;
-  height: 2px;
-  background: var(--text);
+  width: 22px;
+  height: 1.5px;
+  background: var(--white);
   border-radius: 2px;
   transition: all 0.3s;
+}
+
+.nav-scrolled .nav-toggle span {
+  background: var(--charcoal);
 }
 
 .nav-toggle.active span:nth-child(1) {
@@ -158,7 +193,7 @@ a {
   right: 0;
   bottom: 0;
   z-index: 99;
-  background: var(--bg-dark);
+  background: var(--off-white);
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -174,249 +209,288 @@ a {
 }
 
 .mobile-menu a {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 2rem;
-  font-weight: 700;
-  color: var(--text);
+  font-weight: 400;
+  color: var(--charcoal);
   transition: color 0.3s;
 }
 
 .mobile-menu a:hover {
-  color: var(--electric);
+  color: var(--accent);
 }
 
 /* ==========================================================================
-   Hero
+   Hero — full-bleed magazine cover (VOGUE style)
    ========================================================================== */
 
 .hero {
   position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
+  height: 100vh;
+  min-height: 600px;
+  background: var(--black);
   overflow: hidden;
-  background: var(--bg-dark);
 }
 
-.hero-bg {
+.hero-img {
   position: absolute;
   inset: 0;
-  /* WHY: Gradient mesh creates a subtle colored atmosphere without being distracting */
-  background:
-    radial-gradient(ellipse at 20% 50%, rgba(45, 138, 78, 0.12) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 20%, rgba(34, 197, 94, 0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 80%, rgba(45, 138, 78, 0.08) 0%, transparent 50%);
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  padding: 120px 48px 48px;
-  flex: 1;
-  max-width: 55%;
-}
-
-.hero-tag {
-  font-size: 0.8rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 4px;
-  color: var(--electric);
-  margin-bottom: 24px;
-  animation: fadeInUp 0.8s ease 0.2s both;
-}
-
-.hero-name {
-  margin-bottom: 20px;
-}
-
-.hero-first {
-  display: block;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(3.5rem, 8vw, 7rem);
-  font-weight: 700;
-  line-height: 1;
-  color: var(--white);
-  animation: fadeInUp 0.8s ease 0.4s both;
-}
-
-.hero-middle {
-  display: block;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(3rem, 6vw, 5.5rem);
-  font-weight: 700;
-  line-height: 1.1;
-  /* WHY: Gradient text is a bold, modern look that teens gravitate toward */
-  background: linear-gradient(135deg, var(--electric-light) 0%, var(--electric) 50%, var(--neon-green) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: fadeInUp 0.8s ease 0.6s both;
-}
-
-.hero-subtitle {
-  font-size: 1rem;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 5px;
-  color: var(--text-muted);
-  animation: fadeInUp 0.8s ease 0.8s both;
-}
-
-.hero-scroll {
-  margin-top: 48px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  color: var(--text-dim);
-  animation: fadeInUp 0.8s ease 1s both;
-}
-
-.scroll-line {
-  width: 1px;
-  height: 48px;
-  background: var(--electric);
-  position: relative;
-  animation: scrollPulse 2s ease infinite;
-}
-
-.scroll-line::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: -3px;
-  width: 7px;
-  height: 7px;
-  border-right: 1px solid var(--electric);
-  border-bottom: 1px solid var(--electric);
-  transform: rotate(45deg);
-}
-
-.hero-image {
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 50%;
-  z-index: 1;
-}
-
-.hero-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center top;
+  /* WHY: Slight desaturation on hero for editorial film look */
+  filter: saturate(0.8);
 }
 
-.hero-fade {
+.hero-overlay {
   position: absolute;
-  left: 25%;
-  top: 0;
+  inset: 0;
+  /* WHY: Bottom gradient ensures text legibility over any hero image */
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.2) 40%,
+    rgba(0, 0, 0, 0.05) 70%,
+    transparent 100%
+  );
+}
+
+.hero-content {
+  position: absolute;
   bottom: 0;
-  width: 30%;
-  z-index: 1;
-  background: linear-gradient(to right, var(--bg-dark), transparent);
-}
-
-/* ==========================================================================
-   Intro
-   ========================================================================== */
-
-.intro {
-  padding: 100px 32px;
+  left: 0;
+  right: 0;
+  padding: 0 48px 60px;
   text-align: center;
-  background: var(--bg-section);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  z-index: 2;
 }
 
-.intro-inner {
-  max-width: 700px;
-  margin: 0 auto;
+.hero-masthead {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.5em;
+  color: var(--accent);
+  margin-bottom: 12px;
+  animation: fadeInUp 0.8s ease 0.2s both;
 }
 
-.intro-headline {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
-  color: var(--electric-light);
-  margin-bottom: 20px;
+.hero-rule {
+  width: 60px;
+  height: 1px;
+  background: var(--accent);
+  margin: 0 auto 20px;
+  animation: fadeInUp 0.8s ease 0.3s both;
 }
 
-.intro-text {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: var(--text-muted);
+.hero-headline {
+  margin-bottom: 16px;
+  animation: fadeInUp 0.8s ease 0.4s both;
+}
+
+.hero-headline-top {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.4rem, 3vw, 2.2rem);
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--white);
+  line-height: 1.2;
+}
+
+.hero-headline-bottom {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1;
+}
+
+.hero-headline-bottom em {
+  font-style: italic;
+}
+
+.hero-tagline {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 32px;
+  animation: fadeInUp 0.8s ease 0.6s both;
+}
+
+.hero-scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: fadeInUp 0.8s ease 0.8s both;
+}
+
+.hero-scroll span {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.55rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: var(--accent);
+  animation: scrollPulse 2s ease infinite;
 }
 
 /* ==========================================================================
-   Sections
+   Section System — matching Mac's editorial spacing
    ========================================================================== */
 
 .section {
-  padding: 100px 32px;
-  background: var(--bg-dark);
+  padding: 140px 48px;
+  background: var(--off-white);
 }
 
 .section-dark {
-  background: var(--bg-section);
+  background: var(--near-black);
+  color: var(--white);
 }
 
 .section-header {
   text-align: center;
-  margin-bottom: 60px;
+  max-width: 600px;
+  margin: 0 auto 80px;
 }
 
-.section-num {
+.section-tag {
   display: inline-block;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 3px;
-  color: var(--electric);
-  background: rgba(45, 138, 78, 0.1);
-  border: 1px solid rgba(45, 138, 78, 0.2);
-  padding: 6px 16px;
-  border-radius: 20px;
-  margin-bottom: 16px;
-}
-
-.section-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 700;
-  color: var(--white);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--accent);
   margin-bottom: 12px;
 }
 
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 300;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.section-title em {
+  font-style: italic;
+}
+
 .section-desc {
-  font-size: 1rem;
-  color: var(--text-dim);
-  max-width: 500px;
-  margin: 0 auto;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: var(--light-gray);
+  line-height: 1.7;
+}
+
+.section-dark .section-desc {
+  color: var(--light-gray);
 }
 
 /* ==========================================================================
-   Timeline Gallery (Growing Up)
+   Meet Parker — side by side (matches Mac's Meet Mac layout)
+   ========================================================================== */
+
+.meet-layout {
+  display: flex;
+  gap: 80px;
+  max-width: 1100px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.meet-image {
+  flex: 0 0 420px;
+  overflow: hidden;
+}
+
+.meet-image img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+}
+
+.meet-text {
+  flex: 1;
+}
+
+.meet-bio {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.85;
+  color: var(--mid-gray);
+  margin-bottom: 20px;
+}
+
+.meet-bio strong {
+  font-weight: 600;
+  color: var(--charcoal);
+}
+
+.meet-stats {
+  display: flex;
+  gap: 48px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--accent);
+}
+
+.mini-stat {
+  text-align: center;
+}
+
+.mini-stat-num {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.2rem;
+  font-weight: 300;
+  color: var(--charcoal);
+}
+
+.mini-stat-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--light-gray);
+}
+
+/* ==========================================================================
+   His Story — Timeline (horizontal scroll, matches Mac's Her Story)
    ========================================================================== */
 
 .timeline-gallery {
   display: flex;
   overflow-x: auto;
-  gap: 28px;
+  gap: 32px;
   padding: 20px 16px 40px;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
-  scrollbar-color: rgba(45, 138, 78, 0.3) transparent;
+  scrollbar-color: rgba(232, 145, 122, 0.3) transparent;
 }
 
 .timeline-gallery::-webkit-scrollbar {
-  height: 6px;
+  height: 4px;
 }
 
 .timeline-gallery::-webkit-scrollbar-track {
@@ -424,50 +498,37 @@ a {
 }
 
 .timeline-gallery::-webkit-scrollbar-thumb {
-  background: rgba(45, 138, 78, 0.3);
-  border-radius: 3px;
+  background: rgba(232, 145, 122, 0.3);
+  border-radius: 2px;
 }
 
 .timeline-item {
-  flex: 0 0 280px;
-  scroll-snap-align: center;
+  flex: 0 0 260px;
+  scroll-snap-align: start;
   text-align: center;
 }
 
 .timeline-year {
   display: inline-block;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--electric);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--accent);
+  letter-spacing: 0.1em;
   margin-bottom: 12px;
-  letter-spacing: 1px;
-}
-
-.timeline-year::after {
-  content: '';
-  display: block;
-  width: 30px;
-  height: 2px;
-  background: var(--electric);
-  margin: 8px auto 0;
-  opacity: 0.5;
 }
 
 .timeline-img {
-  width: 280px;
-  height: 360px;
-  border-radius: var(--radius);
+  width: 260px;
+  aspect-ratio: 3/4;
   overflow: hidden;
-  box-shadow: var(--shadow);
   cursor: pointer;
   transition: transform 0.4s ease, box-shadow 0.4s ease;
-  border: 1px solid var(--border);
 }
 
 .timeline-img:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: var(--shadow-glow);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
 .timeline-img img {
@@ -482,154 +543,151 @@ a {
 }
 
 .timeline-caption {
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--text-dim);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 300;
+  color: var(--light-gray);
   margin-top: 12px;
 }
 
 /* ==========================================================================
-   Masonry Gallery (Adventures)
+   His World — Asymmetric grid (matches Mac's Her World)
    ========================================================================== */
 
-.masonry-gallery {
-  columns: 3;
-  column-gap: 20px;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.masonry-item {
-  break-inside: avoid;
-  margin-bottom: 20px;
-  border-radius: var(--radius);
-  overflow: hidden;
-  position: relative;
-  cursor: pointer;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--border);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-
-.masonry-item:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-glow);
-}
-
-.masonry-item img {
-  width: 100%;
-  display: block;
-  transition: transform 0.6s ease;
-}
-
-.masonry-item:hover img {
-  transform: scale(1.05);
-}
-
-.masonry-label {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 40px 16px 14px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
-  color: white;
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.masonry-item:hover .masonry-label {
-  opacity: 1;
-}
-
-/* ==========================================================================
-   Crew Gallery (Friends)
-   ========================================================================== */
-
-.crew-gallery {
+.world-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
-  max-width: 1100px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-.crew-card {
-  border-radius: var(--radius);
-  overflow: hidden;
+.world-card {
   position: relative;
+  overflow: hidden;
   cursor: pointer;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--border);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  aspect-ratio: 4/5;
+  aspect-ratio: 1;
 }
 
-.crew-card:hover {
-  transform: translateY(-6px) rotate(-1deg);
-  box-shadow: var(--shadow-glow);
+.world-card-tall {
+  grid-row: span 2;
 }
 
-.crew-card img {
+.world-card-wide {
+  grid-column: span 2;
+}
+
+.world-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.6s ease;
 }
 
-.crew-card:hover img {
-  transform: scale(1.08);
+.world-card:hover img {
+  transform: scale(1.05);
 }
 
-.crew-label {
+.world-overlay {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 40px 16px 14px;
-  background: linear-gradient(to top, rgba(10, 10, 15, 0.85), transparent);
-  color: var(--electric-light);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-align: center;
+  padding: 40px 16px 16px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.world-card:hover .world-overlay {
+  opacity: 1;
+}
+
+.world-label {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--white);
+}
+
+.world-sub {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 4px;
 }
 
 /* ==========================================================================
-   Family Gallery
+   His People — Polaroid gallery (matches Mac's friends pattern)
+   ========================================================================== */
+
+.polaroid-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.polaroid-card {
+  cursor: pointer;
+  transition: transform 0.4s ease;
+}
+
+.polaroid-card:hover {
+  transform: translateY(-6px) rotate(0deg) !important;
+}
+
+.polaroid-frame {
+  background: var(--white);
+  padding: 8px 8px 32px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  width: 200px;
+}
+
+.polaroid-frame img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.polaroid-label {
+  display: block;
+  font-family: 'Caveat', cursive;
+  font-size: 0.95rem;
+  color: var(--light-gray);
+  text-align: center;
+  margin-top: 4px;
+}
+
+/* ==========================================================================
+   Family Gallery — grid with overlays
    ========================================================================== */
 
 .family-gallery {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 4px;
   max-width: 1100px;
   margin: 0 auto;
 }
 
 .family-card {
-  border-radius: var(--radius);
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
   cursor: pointer;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--border);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
   aspect-ratio: 1;
 }
 
 .family-card-wide {
   grid-column: span 2;
   aspect-ratio: 2/1;
-}
-
-.family-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-glow);
 }
 
 .family-card img {
@@ -643,156 +701,170 @@ a {
   transform: scale(1.05);
 }
 
-.family-label {
+.family-overlay {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   padding: 40px 16px 14px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
-  color: var(--text);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-align: center;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.65), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.family-card:hover .family-overlay {
+  opacity: 1;
+}
+
+.family-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--white);
 }
 
 /* ==========================================================================
-   Freshman Year Section
+   Freshman Year — feature layout
    ========================================================================== */
 
-.section-freshman {
-  background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-section) 50%, var(--bg-dark) 100%);
+.freshman-feature {
+  max-width: 700px;
+  margin: 0 auto;
   text-align: center;
 }
 
-.freshman-hero-img {
+.freshman-img {
   max-width: 500px;
   margin: 0 auto 48px;
-  border-radius: var(--radius);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  border: 1px solid var(--border);
 }
 
-.freshman-hero-img img {
+.freshman-img img {
   width: 100%;
 }
 
-.freshman-quote {
-  text-align: center;
-  padding: 40px 32px;
+.freshman-quote blockquote p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--charcoal);
+  line-height: 1.4;
 }
 
-.freshman-quote blockquote p {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(1.5rem, 3.5vw, 2.5rem);
-  font-weight: 700;
-  background: linear-gradient(135deg, var(--electric-light), var(--neon-green));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  line-height: 1.4;
+.freshman-attribution {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  margin-top: 16px;
 }
 
 /* ==========================================================================
    Fun Facts
    ========================================================================== */
 
-.fun-facts {
-  padding: 100px 32px;
-  background: var(--bg-card);
-  border-top: 1px solid var(--border);
-}
-
-.fun-facts-inner {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.fun-facts-title {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 48px;
-  color: var(--electric);
-}
-
 .facts-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 16px;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .fact-card {
-  background: rgba(45, 138, 78, 0.05);
-  border: 1px solid rgba(45, 138, 78, 0.1);
-  border-radius: var(--radius-sm);
-  padding: 24px 20px;
+  /* WHY: Subtle warm-tinted cards stand out against the dark section without being too loud */
+  background: rgba(232, 145, 122, 0.06);
+  border: 1px solid rgba(232, 145, 122, 0.12);
+  border-radius: var(--radius);
+  padding: 28px 24px;
   transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .fact-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(45, 138, 78, 0.3);
+  border-color: rgba(232, 145, 122, 0.3);
 }
 
 .fact-num {
   display: block;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--electric);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--accent);
   margin-bottom: 8px;
 }
 
 .fact-card p {
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: var(--text-muted);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--light-gray);
 }
 
 /* ==========================================================================
-   Footer
+   Footer — editorial masthead style
    ========================================================================== */
 
 .footer {
-  padding: 48px 32px;
+  padding: 60px 48px 40px;
   text-align: center;
-  background: var(--bg-dark);
-  border-top: 1px solid var(--border);
+  background: var(--off-white);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-.footer-headline {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.8rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, var(--electric-light), var(--neon-green));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.footer-masthead {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  color: var(--charcoal);
   margin-bottom: 12px;
 }
 
-.footer-copy {
-  font-size: 0.75rem;
-  color: var(--text-dim);
+.footer-rule {
+  width: 40px;
+  height: 1px;
+  background: var(--accent);
+  margin: 0 auto 12px;
+}
+
+.footer-tagline {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--light-gray);
+  margin-bottom: 24px;
+}
+
+.footer-headline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--accent);
+  margin-bottom: 24px;
 }
 
 .footer-family {
   padding: 1.5rem 0;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
   margin: 1rem 0;
-  text-align: center;
 }
 
 .footer-family-label {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 0.6rem;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: var(--text-dim);
+  color: var(--light-gray);
   display: block;
   margin-bottom: 0.75rem;
 }
@@ -805,15 +877,21 @@ a {
 }
 
 .footer-family-links a {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--mid-gray);
   transition: color 0.3s ease;
 }
 
 .footer-family-links a:hover {
-  color: var(--electric-light);
+  color: var(--accent);
+}
+
+.footer-copy {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.65rem;
+  color: var(--light-gray);
 }
 
 /* ==========================================================================
@@ -841,10 +919,10 @@ a {
 .lightbox img {
   max-width: 90vw;
   max-height: 90vh;
-  border-radius: var(--radius-sm);
   object-fit: contain;
   transform: scale(0.9);
   transition: transform 0.3s ease;
+  filter: none;
 }
 
 .lightbox.active img {
@@ -855,11 +933,8 @@ a {
   position: absolute;
   top: 20px;
   right: 24px;
-  background: none;
-  border: none;
   color: white;
   font-size: 2.5rem;
-  cursor: pointer;
   line-height: 1;
   opacity: 0.7;
   transition: opacity 0.3s;
@@ -875,14 +950,13 @@ a {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(45, 138, 78, 0.15);
-  border: 1px solid rgba(45, 138, 78, 0.3);
+  background: rgba(232, 145, 122, 0.15);
+  border: 1px solid rgba(232, 145, 122, 0.3);
   color: white;
   font-size: 2rem;
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -894,7 +968,7 @@ a {
 .lightbox-prev:hover,
 .lightbox-next:hover {
   opacity: 1;
-  background: rgba(45, 138, 78, 0.3);
+  background: rgba(232, 145, 122, 0.3);
 }
 
 .lightbox-prev { left: 20px; }
@@ -944,33 +1018,28 @@ a {
   .nav-toggle { display: flex; }
   .mobile-menu { display: flex; }
 
-  .hero {
+  .section {
+    padding: 100px 32px;
+  }
+
+  .meet-layout {
     flex-direction: column;
-    min-height: auto;
+    gap: 48px;
   }
 
-  .hero-content {
-    max-width: 100%;
-    padding: 120px 24px 32px;
-    text-align: center;
-  }
-
-  .hero-image {
-    position: relative;
+  .meet-image {
+    flex: none;
     width: 100%;
-    height: 60vh;
+    max-width: 400px;
+    margin: 0 auto;
   }
 
-  .hero-fade {
-    display: none;
+  .world-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 
-  .hero-scroll {
-    justify-content: center;
-  }
-
-  .masonry-gallery {
-    columns: 2;
+  .polaroid-frame {
+    width: 160px;
   }
 
   .family-gallery {
@@ -984,25 +1053,37 @@ a {
 
 @media (max-width: 600px) {
   .section {
-    padding: 60px 16px;
+    padding: 80px 20px;
   }
 
-  .intro {
-    padding: 60px 20px;
+  .section-header {
+    margin-bottom: 48px;
   }
 
-  .masonry-gallery {
-    columns: 1;
+  .hero-content {
+    padding: 0 24px 40px;
   }
 
-  .crew-gallery {
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
+  .world-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .world-card-tall {
+    grid-row: span 1;
+  }
+
+  .polaroid-gallery {
+    gap: 16px;
+  }
+
+  .polaroid-frame {
+    width: 140px;
+    padding: 6px 6px 24px;
   }
 
   .family-gallery {
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 4px;
   }
 
   .family-card-wide {
@@ -1010,12 +1091,11 @@ a {
   }
 
   .timeline-item {
-    flex: 0 0 240px;
+    flex: 0 0 220px;
   }
 
   .timeline-img {
-    width: 240px;
-    height: 300px;
+    width: 220px;
   }
 
   .facts-grid {
@@ -1023,11 +1103,20 @@ a {
     gap: 12px;
   }
 
-  .nav {
-    padding: 12px 16px;
+  .meet-stats {
+    gap: 32px;
   }
 
-  .fun-facts {
-    padding: 60px 16px;
+  .nav {
+    padding: 12px 20px;
+  }
+
+  .footer {
+    padding: 40px 20px;
+  }
+
+  .footer-family-links {
+    flex-direction: column;
+    gap: 0.75rem;
   }
 }
