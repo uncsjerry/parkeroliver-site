@@ -780,6 +780,42 @@ a {
   color: var(--text-dim);
 }
 
+.footer-family {
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--border);
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.footer-family-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-dim);
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.footer-family-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.footer-family-links a {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-family-links a:hover {
+  color: var(--electric-light);
+}
+
 /* ==========================================================================
    Lightbox
    ========================================================================== */
