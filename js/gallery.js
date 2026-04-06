@@ -152,7 +152,8 @@ function renderGallery() {
   if (feedEmpty) feedEmpty.style.display = 'none';
 
   filteredPhotos.forEach((photo, index) => {
-    const thumbUrl = `https://lh3.googleusercontent.com/d/${photo.driveFileId}=w600`;
+    // WHY: Prefer Firebase Storage URL (imageUrl) from pipeline; fall back to Google Drive for legacy photos
+    const thumbUrl = photo.imageUrl || `https://lh3.googleusercontent.com/d/${photo.driveFileId}=w600`;
 
     const card = document.createElement('article');
     card.className = 'fs-gallery-card';
@@ -199,7 +200,8 @@ function closeLightbox() {
 function updateLightbox() {
   if (lightboxIndex < 0 || lightboxIndex >= filteredPhotos.length) return;
   const photo = filteredPhotos[lightboxIndex];
-  lightboxImg.src = `https://lh3.googleusercontent.com/d/${photo.driveFileId}=w1600`;
+  // WHY: Prefer Firebase Storage URL (imageUrl) from pipeline; fall back to Google Drive for legacy photos
+  lightboxImg.src = photo.imageUrl || `https://lh3.googleusercontent.com/d/${photo.driveFileId}=w1600`;
   lightboxImg.alt = photo.caption || photo.driveName || 'Photo';
 
   const date = photo.publishedAt
