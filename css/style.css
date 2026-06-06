@@ -1,10 +1,10 @@
 /* ==========================================================================
    Parker Oliver — parkeroliver.com
-   VOGUE-editorial style with spring pastel accents
+   VOGUE-editorial style with Mediterranean summer accents
    ========================================================================== */
 
 :root {
-  /* WHY: Light cream/ivory base with warm coral accent mirrors the VOGUE editorial aesthetic from Mac's site */
+  /* WHY: Light cream/ivory base with warm teal accent — editorial Mediterranean summer feel */
   --black: #000;
   --near-black: #0a0a0a;
   --charcoal: #1a1a1a;
@@ -15,15 +15,15 @@
   --off-white: #faf8f5;
   --white: #fff;
 
-  /* WHY: Spring palette — warm coral primary, complemented by greens and lavender for a fresh seasonal feel */
-  --accent: #e8917a;
-  --accent-light: #f0a896;
-  --accent-dark: #c97060;
-  --spring-green: #7fb069;
-  --spring-green-light: #a8d99c;
-  --lavender: #b8a9c9;
-  --lavender-light: #d4c8e2;
-  --rose: #d4849a;
+  /* WHY: Summer palette — Mediterranean teal primary, warm sunset and golden sand accents for a sun-drenched editorial feel */
+  --accent: #2A9D8F;
+  --accent-light: #7EC8BE;
+  --accent-dark: #1E7A70;
+  --spring-green: #48CAE4;
+  --spring-green-light: #89D8EE;
+  --lavender: #E76F51;
+  --lavender-light: #F0A896;
+  --rose: #E9A96E;
 
   --radius: 4px;
   --radius-sm: 2px;
@@ -55,8 +55,8 @@ img {
   display: block;
   max-width: 100%;
   height: auto;
-  /* WHY: Slight desaturation gives images an editorial film-stock feel */
-  filter: saturate(0.85);
+  /* WHY: Near-full saturation for summer warmth while keeping editorial feel */
+  filter: saturate(0.95);
 }
 
 a {
