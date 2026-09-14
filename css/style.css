@@ -1,10 +1,10 @@
 /* ==========================================================================
    Parker Oliver — parkeroliver.com
-   VOGUE-editorial style with Mediterranean summer accents
+   VOGUE-editorial style with sophisticated autumnal accents
    ========================================================================== */
 
 :root {
-  /* WHY: Light cream/ivory base with warm teal accent — editorial Mediterranean summer feel */
+  /* WHY: Warm linen base with umber accent — editorial autumnal warmth for Fort Lauderdale fall */
   --black: #000;
   --near-black: #0a0a0a;
   --charcoal: #1a1a1a;
@@ -12,18 +12,18 @@
   --mid-gray: #666;
   --light-gray: #999;
   --ivory: #f5f0eb;
-  --off-white: #faf8f5;
+  --off-white: #FAF7F2;
   --white: #fff;
 
-  /* WHY: Summer palette — Mediterranean teal primary, warm sunset and golden sand accents for a sun-drenched editorial feel */
-  --accent: #2A9D8F;
-  --accent-light: #7EC8BE;
-  --accent-dark: #1E7A70;
-  --spring-green: #48CAE4;
-  --spring-green-light: #89D8EE;
-  --lavender: #E76F51;
-  --lavender-light: #F0A896;
-  --rose: #E9A96E;
+  /* WHY: Fall palette — warm umber primary, burgundy wine and amber gold accents for a sophisticated autumnal feel */
+  --accent: #8B6F4E;
+  --accent-light: #A68B73;
+  --accent-dark: #6B5740;
+  --spring-green: #3A5A40;
+  --spring-green-light: #5A7A60;
+  --lavender: #A63D40;
+  --lavender-light: #C4787A;
+  --rose: #D4A054;
 
   --radius: 4px;
   --radius-sm: 2px;
@@ -55,8 +55,8 @@ img {
   display: block;
   max-width: 100%;
   height: auto;
-  /* WHY: Near-full saturation for summer warmth while keeping editorial feel */
-  filter: saturate(0.95);
+  /* WHY: Slightly muted saturation for warmer, autumnal editorial feel */
+  filter: saturate(0.90);
 }
 
 a {
@@ -489,7 +489,7 @@ button {
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
-  scrollbar-color: rgba(232, 145, 122, 0.3) transparent;
+  scrollbar-color: rgba(166, 61, 64, 0.3) transparent;
 }
 
 .timeline-gallery::-webkit-scrollbar {
@@ -501,7 +501,7 @@ button {
 }
 
 .timeline-gallery::-webkit-scrollbar-thumb {
-  background: rgba(232, 145, 122, 0.3);
+  background: rgba(166, 61, 64, 0.3);
   border-radius: 2px;
 }
 
@@ -780,8 +780,8 @@ button {
 
 .fact-card {
   /* WHY: Subtle warm-tinted cards stand out against the dark section without being too loud */
-  background: rgba(232, 145, 122, 0.06);
-  border: 1px solid rgba(232, 145, 122, 0.12);
+  background: rgba(166, 61, 64, 0.06);
+  border: 1px solid rgba(166, 61, 64, 0.12);
   border-radius: var(--radius);
   padding: 28px 24px;
   transition: transform 0.3s ease, border-color 0.3s ease;
@@ -789,7 +789,7 @@ button {
 
 .fact-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(232, 145, 122, 0.3);
+  border-color: rgba(166, 61, 64, 0.3);
 }
 
 .fact-num {
@@ -953,8 +953,8 @@ button {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(232, 145, 122, 0.15);
-  border: 1px solid rgba(232, 145, 122, 0.3);
+  background: rgba(166, 61, 64, 0.15);
+  border: 1px solid rgba(166, 61, 64, 0.3);
   color: white;
   font-size: 2rem;
   width: 48px;
@@ -971,7 +971,7 @@ button {
 .lightbox-prev:hover,
 .lightbox-next:hover {
   opacity: 1;
-  background: rgba(232, 145, 122, 0.3);
+  background: rgba(166, 61, 64, 0.3);
 }
 
 .lightbox-prev { left: 20px; }
