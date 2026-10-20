@@ -1,16 +1,24 @@
 // ============================================
-// Gallery — Parker Oliver Site (reads from shared Firestore)
+// Gallery — MorrowMark API (replaces Firebase/Firestore)
 // ============================================
+//
+// WHY: Migrated from Firebase to MorrowMark's gallery API which enforces
+// privacy at the server level. Firebase had `read: if true` on Firestore
+// rules — anyone could query all photos. MorrowMark checks is_public,
+// media_visibility_paused, and privacy_wall before serving.
+//
+// The API returns secure serve URLs (/api/media/serve/[id]) that redirect
+// to short-lived presigned S3 URLs instead of permanent public URLs.
 
-import { db } from './firebase-config.js';
-import {
-  collection, query, where, orderBy, getDocs
-} from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
-
-// WHY: "parker" visibility tag — this site shows only photos tagged for Parker
+// WHY: "parker" — this site shows only photos tagged for Parker's member profile.
 const SITE_ID = 'parker';
 
+// WHY: MorrowMark API base URL — hosted on EC2 (34.195.167.131) via app.morrowmark.com.
+// gutierrez-rose is the family's public_slug in the families table.
+const API_BASE = 'https://app.morrowmark.com/api/sites/gutierrez-rose/gallery';
+
 const galleryGrid = document.getElementById('firestoreGalleryGrid');
+const galleryContainer = document.querySelector('.fs-gallery-container');
 const feedEmpty = document.getElementById('firestoreFeedEmpty');
 const feedLoading = document.getElementById('firestoreFeedLoading');
 const categoryTabs = document.getElementById('firestoreCategoryTabs');
@@ -24,37 +32,36 @@ const lightboxNext = document.getElementById('firestoreLightboxNext');
 
 let allPhotos = [];
 let filteredPhotos = [];
+let categories = [];
 let activeCategory = '';
 let searchTerm = '';
 let lightboxIndex = -1;
 let galleryExpanded = false;
 
-const galleryContainer = document.querySelector('.fs-gallery-container');
-
 // -------------------------------------------
-// Load photos — filtered by visibility + status
+// Load photos from MorrowMark API
 // -------------------------------------------
 async function loadPhotos() {
   try {
-    const q = query(
-      collection(db, 'photos'),
-      where('status', '==', 'approved'),
-      where('visibility', 'array-contains', SITE_ID),
-      orderBy('publishedAt', 'desc')
-    );
-    const snapshot = await getDocs(q);
+    const res = await fetch(`${API_BASE}?site=${SITE_ID}&limit=200`);
+    if (!res.ok) throw new Error(`API returned ${res.status}`);
+
+    const data = await res.json();
 
     if (feedLoading) feedLoading.style.display = 'none';
 
-    if (snapshot.empty) {
+    if (!data.photos || data.photos.length === 0) {
       if (feedEmpty) feedEmpty.style.display = 'block';
       return;
     }
 
-    allPhotos = [];
-    snapshot.forEach((doc) => {
-      allPhotos.push({ id: doc.id, ...doc.data() });
-    });
+    allPhotos = data.photos;
+    categories = data.categories || [];
+
+    // WHY: Build category tabs dynamically from API response
+    if (categoryTabs && categories.length > 0) {
+      buildCategoryTabs(categories);
+    }
 
     // WHY: Don't render on load — gallery starts collapsed, photos load silently in background
   } catch (err) {
@@ -65,17 +72,41 @@ async function loadPhotos() {
 }
 
 // -------------------------------------------
+// Build category filter tabs from API data
+// -------------------------------------------
+function buildCategoryTabs(cats) {
+  if (!categoryTabs) return;
+
+  const existingButtons = categoryTabs.querySelectorAll('.fs-filter-btn[data-filter]');
+  const existingFilters = new Set();
+  existingButtons.forEach((btn) => existingFilters.add(btn.dataset.filter));
+
+  cats.forEach((cat) => {
+    if (existingFilters.has(cat)) return;
+    const btn = document.createElement('button');
+    btn.className = 'fs-filter-btn';
+    btn.dataset.filter = cat;
+    btn.textContent = cat;
+    categoryTabs.appendChild(btn);
+  });
+}
+
+// -------------------------------------------
 // Filter + Search
 // -------------------------------------------
 function applyFilters() {
   const term = searchTerm.toLowerCase();
-  filteredPhotos = allPhotos.filter(photo => {
+  filteredPhotos = allPhotos.filter((photo) => {
     if (activeCategory && photo.category !== activeCategory) return false;
     if (term) {
       const searchable = [
-        photo.caption, photo.location, photo.driveName,
-        ...(photo.tags || []), ...(photo.people || [])
-      ].join(' ').toLowerCase();
+        photo.caption,
+        photo.category,
+        ...(photo.tags || []),
+        ...(photo.people || []),
+      ]
+        .join(' ')
+        .toLowerCase();
       if (!searchable.includes(term)) return false;
     }
     return true;
@@ -152,8 +183,8 @@ function renderGallery() {
   if (feedEmpty) feedEmpty.style.display = 'none';
 
   filteredPhotos.forEach((photo, index) => {
-    // WHY: Prefer Firebase Storage URL (imageUrl) from pipeline; fall back to Google Drive for legacy photos
-    const thumbUrl = photo.imageUrl || `https://lh3.googleusercontent.com/d/${photo.driveFileId}=w600`;
+    // WHY: MorrowMark API returns secure serve URLs — use directly
+    const thumbUrl = photo.url;
 
     const card = document.createElement('article');
     card.className = 'fs-gallery-card';
@@ -169,7 +200,7 @@ function renderGallery() {
 
     card.innerHTML = `
       <div class="fs-gallery-card-image">
-        <img src="${esc(thumbUrl)}" alt="${esc(photo.caption || photo.driveName || 'Photo')}" loading="lazy">
+        <img src="${esc(thumbUrl)}" alt="${esc(photo.caption || 'Photo')}" loading="lazy">
         ${categoryBadge}
       </div>
       ${photo.caption ? `<p class="fs-gallery-card-caption">${esc(photo.caption)}</p>` : ''}
@@ -200,13 +231,13 @@ function closeLightbox() {
 function updateLightbox() {
   if (lightboxIndex < 0 || lightboxIndex >= filteredPhotos.length) return;
   const photo = filteredPhotos[lightboxIndex];
-  // WHY: Prefer Firebase Storage URL (imageUrl) from pipeline; fall back to Google Drive for legacy photos
-  lightboxImg.src = photo.imageUrl || `https://lh3.googleusercontent.com/d/${photo.driveFileId}=w1600`;
-  lightboxImg.alt = photo.caption || photo.driveName || 'Photo';
+  // WHY: MorrowMark serve URLs work for full-size images too
+  lightboxImg.src = photo.url;
+  lightboxImg.alt = photo.caption || 'Photo';
 
-  const date = photo.publishedAt
-    ? photo.publishedAt.toDate().toLocaleDateString('en-US', {
-        year: 'numeric', month: 'long', day: 'numeric'
+  const date = photo.date
+    ? new Date(photo.date).toLocaleDateString('en-US', {
+        year: 'numeric', month: 'long', day: 'numeric',
       })
     : '';
 
@@ -217,7 +248,6 @@ function updateLightbox() {
   lightboxMeta.innerHTML = `
     ${photo.caption ? `<p class="fs-lightbox-caption">${esc(photo.caption)}</p>` : ''}
     <div class="fs-lightbox-details">
-      ${photo.location ? `<span>${esc(photo.location)}</span>` : ''}
       ${date ? `<span>${date}</span>` : ''}
       ${photo.category ? `<span>${esc(photo.category)}</span>` : ''}
       ${peopleLine}
